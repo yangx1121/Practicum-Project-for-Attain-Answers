@@ -1,8 +1,4 @@
 # Risk-Management-Project-for-Attain-Answers
-<<<<<<< HEAD
-# -CCRB-Jurisdiction-Complaints-Records
-# -CCRB-Jurisdiction-Complaints-Records
-=======
 
 ## Welcome to Risk Management Project of Attain Answers GWU Practicum.
 
@@ -35,6 +31,4 @@
 * Examined Attain risk data to understand if it is possible to predict recurring risks from the independent variables provided, e.g., schedule, budget, etc.; 
 * Used Market Basket Association analysis to train machine learning model in order to match customers’ demand with Attain’s service;
 * Researched, preformed, completed social network analysis and human behaviors analysis projects using Webhose.io, and Meltego.
->>>>>>> 009cc7d6e121cd1e1ca327fec0695c64f71ab0f7
-# -CCRB-Jurisdiction-Complaints-Records
-# -CCRB-Jurisdiction-Complaints-Records
+
