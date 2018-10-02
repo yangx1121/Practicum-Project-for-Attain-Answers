@@ -37,5 +37,5 @@ The platform based on Webhose API and Maltego would mainly work for the purpose 
 * Used Attain Answers AI library for text mining analysis on more than 100 Attain resumes, which allows Attain to search by specific skills needed, for a given job, and to find the correct person based on Python; 
 * Organized, explored, analysed, visualized Attain risk data to predict recurring risks from 12 independent variables provided, e.g., schedule, budget, etc.using R, Tableau, SAS JMP; 
 * Implemented Market Basket Association analysis to train machine learning model in order to match customers’ demand with Attain’s service using SAS JMP;
-* Researched, preformed, completed social network analysis and human behaviors analysis projects on Anti-semitism & Antifa topic using Webhose.io, and Meltego.
+* Researched, preformed, completed social network analysis and human behaviors analysis projects on Anti-semitism & Antifa topic using Webhose.io API, and Meltego.
 
