@@ -24,35 +24,62 @@ library.
 #### Risk data
 * Another topic we are working on is the to understand the risk within Attain. We examined Attain risk data to understand if it is possible to predict recurring risks from the risk factors provided. The risk data we got has the probability, impact and criticality for 8 different projects overtime and each project has the same risk factors such as resources and quality. Here, the criticality equals probability times the impact. We want to see if there is a pattern in the risk data and those risks can be predicted by a model. Therefore, the company can know on which month the risk for the project will increase and be well prepared for those risks.
 
+1) Descriptive analysis
+For descriptive analysis, we utilize aggregated values of each factor for plotting trending lines across all months. Specifically, we preprocess average of each factor for every same month across all projects. Then we could see in general the trending fluctuation of each factor overtime. According to the result, we found, in general, project risk getting worse in winter focusing in November, December and January. On the contrary, May, June and Febrary are generally likely to have smooth project going. 
+
+<img src= 'Risk data/Aggregated trending line.png'>
+
+Also we would like to show the percentage of each factor accounting for total in every month. So we also visualized aggregated bar plot over time. According to the plot shows, the highest level of criticality is 9.857 and the lowest level of criticality is 2.333. Besides, Budget and Resource are generally the most dangerous factors which we should pay more attention to.
+
+<img src= 'Risk data/Aggregated Bar Chart.png'>
+
+In addition, we are also curious about the multicollinearity of these measure factors. So we also conduct correlation analysis by binary table as well as statistical probability to see how strong of their positive or negative relationships.
+
+<img src= 'Risk data/Correlation_01.png'>
+
+2) Time Series Predictive Analysis
+
+For the risk data, we has the criticality for 8 different projects overtime and each project has the same 13 risk factors such as resources and quality. Last time, we wanted to see if there was a pattern in the risk data and those risks could be predicted by a model. But the time series models for the overall risk and risks for different projects we got had a low R square. Therefore, we made some improvements for the models such as adding seasonal dummies, different kind of trends and ARMA model for seasonals. As we expected, the R square increased a lot, which is more than 0.7. Here are the results from SAS for the overall risk and the resources risk. For example, the resources risk factor, the R Square is even more than 0.8. The R square increased and the error decreased significantly after we use the hyperbolic trend.
+
+<img src= 'Risk data/Time Series 01.png'>
+
+<img src= 'Risk data/Time Series 02.png'>
+
+<img src= 'Risk data/Time Series 03.png'>
+
+<img src= 'Risk data/Time Series 04.png'>
+
 #### Resume Text Mining
 * Attain also wants to assign the projects or tasks to appropriate people more efficiently at the beginning of a new project. By utilizing Attain’s AI library, we would conduct unsupervised learning on employees resumes to create index for skills so that each resume could be tagged with one or more skills the employee has, which could help to find the right person with the skills in need.
 
 ##### What we did so far:
 
-1) For the resume files from Attain, we did some basic text mining exploration like word count and word cloud visualization, and text transformation using TF-IDF on the given resumes and have been trying to working on the topic clustering based on LDA model.
+For the resume files from Attain, we did some basic text mining exploration like word count and word cloud visualization, and text transformation using TF-IDF on the given resumes and have been trying to working on the topic clustering based on LDA model.
 
-See Graph 3.1. Here is the word cloud generated from all the resume files, showing the frequency of the words in the resumes of Attain.
+1) At first, we did some basic text preprocessing like tokenizer, stemmer, removing stopwords and common punctuations so that the text files are much cleaner for further analysis. See below.
 
-2) We then did some basic text preprocessing like tokenizer, stemmer, removing stopwords and common punctuations so that the text files are much cleaner for further analysis. See Graph 3.2 and Graph 3.3
+<img src= 'Resumes mining/remove stopwords.png'>
 
 <img src= 'Resumes mining/Lowercase and remove punctuation.png'>
 
+2) Here is the word cloud generated from all the resume files, showing the frequency of the words in the resumes of Attain.
+
+<img src='Resumes mining/word cloud.png'>
+      
 3) Here are the 20 most common words from the resume files. 
-Graph 3.4
+<img src='Resumes mining/20 Most common words from all resume data.png'>
+      
+4) Here are some common collocations from resume files. 
 
-4) Here are some common collocations from resume files. See Graph 3.5.
-Graph 3.5
+<img src='Resumes mining/common collocations from all resume data (1).png'>
+      
+5) Here is another exploratory analysis on the resume files that could be useful when we want to analyze some specific words. 
 
-5) Here is another exploratory analysis on the resume files that could be useful when we want to analyze some specific words. See Graph 3.6.
+<img src='Resumes mining/Sentences including word (skill) from all resume data.png'>
+      
+6) After resume data clean and data exploration, we next step would like to implement text transformation. We referred to TF-IDF theory. This theory could be divided into two concept: one is importance and the other is frequency. TF stands for term frequency, which equals to count(word) / len(document); IDF stand for inverse document frequency namely term importance, which formulated by log( total number of document / count(document_containing_term)). Then we define TF-IDF function in python and apply to resume data. See Graph 3.7. In the graph, we could find the most feature word of each resume order by value of TF-IDF from high to low.
 
-Graph 3.6
-After resume data clean and data exploration, we next step would like to implement text transformation. We referred to TF-IDF theory. This theory could be divided into two concept: one is importance and the other is frequency. TF stands for term frequency, which equals to count(word) / len(document); IDF stand for inverse document frequency namely term importance, which formulated by log( total number of document / count(document_containing_term)).
-Then we define TF-IDF function in python and apply to resume data. See Graph 3.7. In the graph, we could find the most feature word of each resume order by value of TF-IDF from high to low.
-
-Graph 3.7
-
-
-
+<img src='Resumes mining/TF-IDF.png'>
 
 #### Proposal Text Mining
 * Just like creating index for skills in resumes, Attain would also like to create index for topics in proposals. We would utilize Attain’s AI library to conduct unsupervised learning on proposals and build a model that could extract the main topics in a specific proposal. By doing so, managers could save plenty of time and efforts of reading proposals that have dozens of pages.
