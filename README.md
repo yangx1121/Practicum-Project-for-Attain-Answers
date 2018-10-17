@@ -35,7 +35,7 @@ See Graph 3.1. Here is the word cloud generated from all the resume files, showi
 
 2) We then did some basic text preprocessing like tokenizer, stemmer, removing stopwords and common punctuations so that the text files are much cleaner for further analysis. See Graph 3.2 and Graph 3.3
 
-![alt text](Resumes mining/Lowercase and remove punctuation.png)
+![screeshot](Resumes mining/Lowercase and remove punctuation.png)
 
 3) Here are the 20 most common words from the resume files. 
 Graph 3.4
