@@ -56,7 +56,7 @@ For the risk data, we has the criticality for 8 different projects overtime and 
 #### Resume Text Mining
 * Attain also wants to assign the projects or tasks to appropriate people more efficiently at the beginning of a new project. By utilizing Attain’s AI library, we would conduct unsupervised learning on employees resumes to create index for skills so that each resume could be tagged with one or more skills the employee has, which could help to find the right person with the skills in need.
 
-##### What we did so far:
+* What we did so far:
 
 For the resume files from Attain, we did some basic text mining exploration like word count and word cloud visualization, and text transformation using TF-IDF on the given resumes and have been trying to working on the topic clustering based on LDA model.
 
@@ -84,6 +84,10 @@ For the resume files from Attain, we did some basic text mining exploration like
 6) After resume data clean and data exploration, we next step would like to implement text transformation. We referred to TF-IDF theory. This theory could be divided into two concept: one is importance and the other is frequency. TF stands for term frequency, which equals to count(word) / len(document); IDF stand for inverse document frequency namely term importance, which formulated by log( total number of document / count(document_containing_term)). Then we define TF-IDF function in python and apply to resume data. See Graph 3.7. In the graph, we could find the most feature word of each resume order by value of TF-IDF from high to low.
 
 <img src='Resumes mining/TF-IDF.png'>
+
+7) The next step is document clustering by using Doc2Vec algorithm. This method differ from word count or TF-IDF or LDA. Because it takes word order into account, but LDA only cares word by word seperately. In the future, we can search a target resume by descripting on word group or sentences level, for example, have 5+ years experience on Python and proficient in project management.
+
+<img src='Resumes mining/Doc2Vec.png'>
 
 #### Proposal Text Mining
 * Just like creating index for skills in resumes, Attain would also like to create index for topics in proposals. We would utilize Attain’s AI library to conduct unsupervised learning on proposals and build a model that could extract the main topics in a specific proposal. By doing so, managers could save plenty of time and efforts of reading proposals that have dozens of pages.
