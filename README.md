@@ -96,8 +96,8 @@ For the resume files from Attain, we did some basic text mining exploration like
 The platform based on Webhose API and Maltego would mainly work for the purpose to help Attain build Human Analytics Managed Services platform and thus finish the skeleton of entire digital consulting platform, and the result of risk data analysis could be used to provide some data-driven suggestions to the consultants in the attain company.
 
 ### Procedures:
-* Used Attain Answers AI library for text mining analysis on more than 100 Attain resumes, which allows Attain to search by specific skills needed, for a given job, and to find the correct person based on Python; 
-* Organized, explored, analysed, visualized Attain risk data to predict recurring risks from 12 independent variables provided, e.g., schedule, budget, etc.using R, Tableau, SAS JMP; 
-* Implemented Market Basket Association analysis to train machine learning model in order to match customers’ demand with Attain’s service using SAS JMP;
+* Improved Association Rule Mining Analysis to train machine learning model in order to match customers’ demand with Attain’s service using Python Apriori algorithms;
+* Used Attain Answers AI library for text mining analysis on more than 100 Attain resumes, which allows Attain to search by specific skills needed, for a given job, and to find the correct person based on Python LDA algorithms; 
+* Organized, explored, analysed, visualized Attain risk data to predict recurring risks from 13 independent variables provided, e.g., schedule, budget, etc.using R, Tableau, SAS Time Series Analysis; 
 * Researched, preformed, completed social network analysis and human behaviors analysis projects on Anti-semitism & Antifa topic using Webhose.io API, and Meltego.
 
