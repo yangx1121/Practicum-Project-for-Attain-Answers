@@ -24,42 +24,122 @@ requirements, then we source those requirements to Attain capabilities. From the
 
 5. Bonus task. If time allows the team will examine the AttainAnswers lifecycle and make recommendations for how to analyze holistic engagement performance such that AttainAnswers will become smarter over time. With this insight, the platform can direct executives as to how the customer, partner or Attain fulfillment trends are changing over time.
 
+### Procedures:
+* Improved Association Rule Mining Analysis to train machine learning model in order to match customers’ demand with Attain’s service using Python Apriori algorithms;
+* Used Attain Answers AI library for text mining analysis on more than 100 Attain resumes, which allows Attain to search by specific skills needed, for a given job, and to find the correct person based on Python LDA algorithms; 
+* Researched, preformed, completed social network analysis and human behaviors analysis projects on Anti-semitism & Antifa topic using Webhose.io API, and Meltego;
+* Organized, explored, analysed, visualized Attain risk data to predict recurring risks from 13 independent variables provided, e.g., schedule, budget, etc.using R, Tableau, SAS Time Series Analysis.
 
 ### Questions we are working on
+#### Association Rule Mining for Service Recommended
+Association rule mining (ARM) is a useful data mining technique to detect patterns and rules.  To provide better service for Attain’s customers and understand better their demand patterns, it’s significant to improve the current association ARM algorithm according to different dataset features and different technical requests. 
+
+To perform ARM, the collected information is analyzed and a number of relevant rule criteria are detected. One of the applied algorithm is Apriori. Apriori finds rules and relations among
+variables in a data set. The algorithm finds frequent patterns and calculates the rule’s several indices. Support and confidence, are the two major indices, which have useful applications to evaluate the rules. Lift is the third but the most important index. Lift(A -> B) refers to the increase in the ratio of sale of B when A is sold. Lift(A –> B) can be calculated by dividing Confidence(A -> B) divided by Support(B).
+
+For large sets of data, there can be hundreds of items in hundreds of thousands transactions. The Apriori algorithm tries to extract rules for each possible combination of items. This process can be extremely slow due to the number of combinations. To speed up the process, we need to perform the following steps:
+1. Set a minimum value for support and confidence. This means that we are only interested in finding rules for the items that have certain default existence (e.g. support) and have a minimum value for co-occurrence with other items (e.g. confidence).
+2. Extract all the subsets having higher value of support than minimum threshold.
+3. Select all the rules from the subsets with confidence value higher than minimum threshold.
+4. Order the rules by descending order of Lift.
+
+Specifically, we respectively implement python code step by step. As first step, we use generate_rules to take dataframes of frequent itemsets as produced by the apriori function in mlxtend.association when we want to generate association rules from frequent itemsets. The generate_rules() function allows you to (1) specify your metric of interest and (2) the according threshold.
+
+      import pandas as pd
+      from mlxtend.preprocessing import TransactionEncoder
+      from mlxtend.frequent_patterns import apriori
+
+
+      dataset = [['Milk', 'Onion', 'Nutmeg', 'Kidney Beans', 'Eggs', 'Yogurt'],
+           ['Dill', 'Onion', 'Nutmeg', 'Kidney Beans', 'Eggs', 'Yogurt'],
+           ['Milk', 'Apple', 'Kidney Beans', 'Eggs'],
+           ['Milk', 'Unicorn', 'Corn', 'Kidney Beans', 'Yogurt'],
+           ['Corn', 'Onion', 'Onion', 'Kidney Beans', 'Ice cream', 'Eggs']]
+
+      te = TransactionEncoder()
+      te_ary = te.fit(dataset).transform(dataset)
+      df = pd.DataFrame(te_ary, columns=te.columns_)
+      frequent_itemsets = apriori(df, min_support=0.6, use_colnames=True)
+      frequent_itemsets
+      
+      from mlxtend.frequent_patterns import association_rules
+      association_rules(frequent_itemsets, metric="confidence", min_threshold=0.7)
+
+Next, we discuss the condition that when we you are interested in rules according to a different metric of interest, you can simply adjust the metric and min_threshold arguments . E.g. if you are only interested in rules that have a lift score of >= 1.2, you would do the following:
+      
+      rules = association_rules(frequent_itemsets, metric="lift", min_threshold=1.2)
+
+And then, say, we are ony interested in rules that satisfy the following criteria:
+
+      rules["antecedent_len"] = rules["antecedents"].apply(lambda x: len(x))
+      rules[ (rules['antecedent_len'] >= 2) &
+            (rules['confidence'] > 0.75) &
+            (rules['lift'] > 1.2) ]
+
+Thirdly, when we face with a condition where there are frequent itemsets with incomplete antecedent and consequent information. For example, the confidence is computed as confidence(A→C)=support(A→C)/support(A). But we do not have support(A). In these scenarios, where not all metrix can be computed, due to incomplete input DataFrames, you can use the support_only=True option, which will only compute the support column of a given rule that does not require as much info: support(A→C)=support(A∪C). "NaN's" will be assigned to all other metric columns:
+
+      from mlxtend.frequent_patterns import association_rules
+      res = association_rules(freq_itemsets, support_only=True, min_threshold=0.1)
+      res = res[['antecedents', 'consequents', 'support']]
+      res 
+
 #### Resume Text Mining
 Attain also wants to assign the projects or tasks to appropriate people more efficiently at the beginning of a new project. By utilizing Attain’s AI library, we would conduct unsupervised learning on employees resumes to create index for skills so that each resume could be tagged with one or more skills the employee has, which could help to find the right person with the skills in need.
 
 For the resume files from Attain, we did some basic text mining exploration like word count and word cloud visualization, and text transformation using TF-IDF on the given resumes and have been trying to working on the topic clustering based on LDA model.
 
-1) At first, we did some basic text preprocessing like tokenizer, stemmer, removing stopwords and common punctuations so that the text files are much cleaner for further analysis. See below.
+1. At first, we did some basic text preprocessing like tokenizer, stemmer, removing stopwords and common punctuations so that the text files are much cleaner for further analysis. See below.
 
 <img src= 'Resumes mining/remove stopwords.png'>
 
 <img src= 'Resumes mining/Lowercase and remove punctuation.png'>
 
-2) Here is the word cloud generated from all the resume files, showing the frequency of the words in the resumes of Attain.
+2. Here is the word cloud generated from all the resume files, showing the frequency of the words in the resumes of Attain.
 
 <img src='Resumes mining/word cloud.png'>
       
-3) Here are the 20 most common words from the resume files. 
+3. Here are the 20 most common words from the resume files. 
 <img src='Resumes mining/20 Most common words from all resume data.png'>
       
-4) Here are some common collocations from resume files. 
+4. Here are some common collocations from resume files. 
 
 <img src='Resumes mining/common collocations from all resume data (1).png'>
       
-5) Here is another exploratory analysis on the resume files that could be useful when we want to analyze some specific words. 
+5. Here is another exploratory analysis on the resume files that could be useful when we want to analyze some specific words. 
 
 <img src='Resumes mining/Sentences including word (skill) from all resume data.png'>
       
-6) After resume data clean and data exploration, we next step would like to implement text transformation. We referred to TF-IDF theory. This theory could be divided into two concept: one is importance and the other is frequency. TF stands for term frequency, which equals to count(word) / len(document); IDF stand for inverse document frequency namely term importance, which formulated by log( total number of document / count(document_containing_term)). Then we define TF-IDF function in python and apply to resume data. See Graph 3.7. In the graph, we could find the most feature word of each resume order by value of TF-IDF from high to low.
+6. After resume data clean and data exploration, we next step would like to implement text transformation. We referred to TF-IDF theory. This theory could be divided into two concept: one is importance and the other is frequency. TF stands for term frequency, which equals to count(word) / len(document); IDF stand for inverse document frequency namely term importance, which formulated by log( total number of document / count(document_containing_term)). Then we define TF-IDF function in python and apply to resume data. See Graph 3.7. In the graph, we could find the most feature word of each resume order by value of TF-IDF from high to low.
 
 <img src='Resumes mining/TF-IDF.png'>
 
-7) The next step is document clustering by using Doc2Vec algorithm. This method differ from word count or TF-IDF or LDA. Because it takes word order into account, but LDA only cares word by word seperately. In the future, we can search a target resume by descripting on word group or sentences level, for example, have 5+ years experience on Python and proficient in project management.
+7. The next step is document clustering by using Doc2Vec algorithm. This method differ from word count or TF-IDF or LDA. Because it takes word order into account, but LDA only cares word by word seperately. In the future, we can search a target resume by descripting on word group or sentences level, for example, have 5+ years experience on Python and proficient in project management.
 
 <img src='Resumes mining/Doc2Vec.png'>
 
+8) We also tries to run the data into LDA Mallet Model by using the Gensim package.
+
+<img src='Resumes mining/LDA1.png'>
+
+The coherence score we get from the LDA Mallet model is 0.424, which is a good way to judge the performance of the model. Basically, the higher the coherence score, the better the model. 
+
+<img src='Resumes mining/LDA2.png'>
+
+<img src='Resumes mining/LDA3.png'>
+
+<img src='Resumes mining/LDA4.png'>
+
+<img src='Resumes mining/LDA5.png'>
+
+To improve the model, we tried to find the optimal number of topics by trying different values of the number of topics and choose the one that has the highest coherence score. Form the output, we notice that the coherence value is highest(0.453) when the number of topics is 8.
+
+<img src='Resumes mining/LDA6.png'>
+
+<img src='Resumes mining/LDA7.png'>
+
+Therefore, we selected this optimal model and printed out the 8 topics below.
+
+<img src='Resumes mining/LDA8.png'>
 
 #### HAMS (Human Analytics Managed Services)
 * We are developing an analytics services to classify and visualize people’s opinions via custom internet search.The workflow is first crawling the data from the Internet, where client could define the search terms and data source, and then importing all data into a temporary database. Next, we build models to filter and classify the data queried from database. Finally, we would visualize the results in Maltego Application. 
@@ -137,9 +217,5 @@ As we expected, the R square increased a lot, which is more than 0.7. Here are t
 * Leads to more intelligent job execution
 
 
-### Procedures:
-* Improved Association Rule Mining Analysis to train machine learning model in order to match customers’ demand with Attain’s service using Python Apriori algorithms;
-* Used Attain Answers AI library for text mining analysis on more than 100 Attain resumes, which allows Attain to search by specific skills needed, for a given job, and to find the correct person based on Python LDA algorithms; 
-* Organized, explored, analysed, visualized Attain risk data to predict recurring risks from 13 independent variables provided, e.g., schedule, budget, etc.using R, Tableau, SAS Time Series Analysis; 
-* Researched, preformed, completed social network analysis and human behaviors analysis projects on Anti-semitism & Antifa topic using Webhose.io API, and Meltego.
+
 
