@@ -6,7 +6,7 @@
 * Participants: Xuan Yang, Mengchen Xiao, Weihang Wen, Yinian Lyu, Weichao Zhu
 * Instructor: Prof. Shivraj Kanungo
 * Company Main Contacts: Tim Pavlick(tpavlick@attain.com), Alex Brown(abbrown@attain.com)
-* Final Report: [BA Practicum Final Report.pdf](Deliverable/BA Practicum Final Report.pdf)
+* Final Report: [BA Practicum Final Report.pdf](/Deliverable/BA Practicum Final Report.pdf)
       
       
 
@@ -27,7 +27,7 @@ requirements, then we source those requirements to Attain capabilities. From the
 
 ### Questions we are working on
 #### Resume Text Mining
-* Attain also wants to assign the projects or tasks to appropriate people more efficiently at the beginning of a new project. By utilizing Attain’s AI library, we would conduct unsupervised learning on employees resumes to create index for skills so that each resume could be tagged with one or more skills the employee has, which could help to find the right person with the skills in need.
+Attain also wants to assign the projects or tasks to appropriate people more efficiently at the beginning of a new project. By utilizing Attain’s AI library, we would conduct unsupervised learning on employees resumes to create index for skills so that each resume could be tagged with one or more skills the employee has, which could help to find the right person with the skills in need.
 
 For the resume files from Attain, we did some basic text mining exploration like word count and word cloud visualization, and text transformation using TF-IDF on the given resumes and have been trying to working on the topic clustering based on LDA model.
 
@@ -74,7 +74,7 @@ For the resume files from Attain, we did some basic text mining exploration like
 <img src= 'Social Network Analysis/Social Network Analysis 01.png'>
 
 #### Risk data
-* Another topic we are working on is the to understand the risk within Attain. We examined Attain risk data to understand if it is possible to predict recurring risks from the risk factors provided. The risk data we got has the probability, impact and criticality for 8 different projects overtime and each project has the same risk factors such as resources and quality. Here, the criticality equals probability times the impact. We want to see if there is a pattern in the risk data and those risks can be predicted by a model. Therefore, the company can know on which month the risk for the project will increase and be well prepared for those risks.
+*Another topic we are working on is the to understand the risk within Attain. We examined Attain risk data to understand if it is possible to predict recurring risks from the risk factors provided. The risk data we got has the probability, impact and criticality for 8 different projects overtime and each project has the same risk factors such as resources and quality. Here, the criticality equals probability times the impact. We want to see if there is a pattern in the risk data and those risks can be predicted by a model. Therefore, the company can know on which month the risk for the project will increase and be well prepared for those risks.
 
 1) Descriptive analysis
 
@@ -113,6 +113,7 @@ With the help of the optimal LDA model, 8 topics from the resume files were conc
 As for the resume classification, the convolutional model reached a accuracy of 0.85 after validation. The loss curves and accuracy curves are shown below.
 
 3. HAMS (Human Analytics Managed Services)
+
 The gray nodes are sites like “reddit.com”, “4chan.org”, “freerepublic.com”, etc. In this case, the site is only “reddit.com”. Next level of green nodes are section titles (subreddit) under different sites for instance, “STRAYING OUTSIDE OF THE STATUS QUO IS FOR MELVINS”, etc. The red inferior nodes are different threads under section titles like “Centrist conspiracy theorists”, “the meaning of christmas”, etc. The outest yellow nodes are posts under different threads.
 
 <img src='Social Network Analysis/Visulization.png'>
