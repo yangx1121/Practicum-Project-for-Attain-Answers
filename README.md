@@ -6,7 +6,7 @@
 * Participants: Xuan Yang, Mengchen Xiao, Weihang Wen, Yinian Lyu, Weichao Zhu
 * Instructor: Prof. Shivraj Kanungo
 * Company Main Contacts: Tim Pavlick(tpavlick@attain.com), Alex Brown(abbrown@attain.com)
-* Final Report:[Deliverable/BA Practicum Final Report.pdf](BA Practicum Final Report.pdf)
+* Final Report:[BA Practicum Final Report.pdf](Deliverable/BA Practicum Final Report.pdf)
       
 
 ### Tasks Description
